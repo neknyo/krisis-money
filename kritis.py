@@ -5,7 +5,6 @@ import os
 from PIL import Image
 import tkinter.ttk as ttk
 
-# <<< FIX: Add these two lines to prevent the crash on macOS
 import matplotlib
 matplotlib.use('TkAgg')
 
@@ -17,7 +16,7 @@ SPENDING_FILE = "spending.csv"
 INCOME_FILE = "income.csv"
 
 # ----------------------------
-# Helpers
+# not so important functions ithink
 # ----------------------------
 def load_csv(file, cols):
     if os.path.exists(file):
@@ -30,7 +29,7 @@ def save_csv(df, file):
     df.to_csv(file, index=False, header=False)
 
 # ----------------------------
-# Core Functions
+# ther real deal Core Functions
 # ----------------------------
 def refresh_table():
     for row in tree.get_children():
@@ -132,8 +131,9 @@ def update_balance():
 
     balance_label.configure(text=f"Balance: {balance:,.2f}")
 
-
+#----------------------
 # kok gini sih yatuhan
+#----------------------
 
 def show_spending_graphs_animated():
     for widget in graph_frame.winfo_children():
@@ -160,17 +160,20 @@ def show_spending_graphs_animated():
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.5))
     fig.patch.set_facecolor('#454548')
 
-    # --- Bar Chart ---
+    # ---------------------
+    # barely working bar Chart 
+    # ---------------------
     axes[0].set_facecolor('#454548')
     bars = axes[0].bar(daily_spending.index, [0]*len(daily_spending), color="#1f77b4")
     axes[0].set_title("Daily Spending", color='white')
     axes[0].tick_params(axis='x', rotation=45, colors='white', labelsize=8)
     axes[0].tick_params(axis='y', colors='white', labelsize=8)
     
-    # <<< CHANGE: Set the y-axis scale for the bar chart
     axes[0].set_ylim(0, 200000)
 
-    # --- Pie Chart ---
+    #–––––––––––––––
+    # kinda working Pie Chart 
+    #–––––––––––––––
     axes[1].set_facecolor('#454548')
     wedges, texts, autotexts = axes[1].pie(category_spending, labels=category_spending.index, autopct="%1.1f%%", startangle=140)
     for text in texts:
